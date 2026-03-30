@@ -1,0 +1,180 @@
+/* --- MAIN WRAPPER --- */
+.certificates-wrapper {
+  padding: 40px;
+  background-color: #0b0f19; /* Deep Dark Background matching Beneficiaries */
+  min-height: calc(100vh - 80px);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* --- PAGE HEADER --- */
+.page-header {
+  margin-bottom: 10px;
+}
+
+.page-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+/* --- WHITE CARDS (Form & Table) --- */
+.upload-card,
+.list-card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  color: #1e293b;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  max-width: 100%; /* Allow full width matching the image */
+}
+
+/* --- FORM GROUPING --- */
+.card-header-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: #6366f1;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns for certificates */
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.custom-form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.modern-select {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background-color: #e2e8f0;
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+/* --- DROPZONE VISIBILITY --- */
+.dropzone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  background: #f8fafc;
+  transition: 0.3s;
+}
+
+.dropzone:hover {
+  border-color: #6366f1;
+  background: #f1f5f9;
+}
+
+/* --- GRADIENT SUBMIT BUTTON --- */
+.btn-submit {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+/* --- TABLE STYLING --- */
+.cert-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cert-table th {
+  text-align: left;
+  padding: 15px;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cert-table td {
+  padding: 15px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.9rem;
+}
+
+.bold {
+  color: #1e293b;
+  font-weight: 700;
+}
+
+.status-badge.pending {
+  background: #fef9c3;
+  color: #854d0e;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.view-link {
+  color: #6366f1;
+  font-weight: 600;
+  text-decoration: none;
+}
+.status-badge.synced {
+  background-color: #dcfce7; /* Light Green background */
+  color: #166534; /* Dark Green text */
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 12px;
+  border: 1px solid #bbf7d0;
+}
+
+.search-results-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  list-style: none;
+  padding: 0;
+}
+
+.search-results-dropdown li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.search-results-dropdown li:hover {
+  background-color: #f3f4f6;
+  color: #6366f1;
+}
+
+.no-results {
+  color: #999;
+  text-align: center;
+  padding: 10px;
+}

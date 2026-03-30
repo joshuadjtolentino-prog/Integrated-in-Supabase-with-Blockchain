@@ -1,0 +1,95 @@
+.about-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.about-container {
+  max-width: 1000px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 40px;
+  color: white;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.back-btn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.about-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.about-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 25px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.about-card h3 {
+  margin-bottom: 12px;
+  color: #e0e0e0;
+}
+
+.about-card p {
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: #d1d1d1;
+}
+
+.about-footer {
+  margin-top: 40px;
+  text-align: center;
+  opacity: 0.7;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .about-header h1 { font-size: 1.8rem; }
+  .about-container { padding: 20px; }
+}

@@ -1,0 +1,279 @@
+:root {
+  --primary: #6366f1;
+  --secondary: #4f46e5;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --bg-subtle: #f8fafc;
+  --border-color: #cbd5e1;
+}
+
+.beneficiaries-wrapper {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+/* Form Card Modernization */
+.form-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.5rem;
+  border: 1px solid #f1f5f9;
+}
+
+.form-card h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+  font-size: 1.25rem;
+}
+
+.input-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+input, select {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border-color);
+  background-color: #ffffff;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+input::placeholder {
+  color: var(--text-muted);
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+/* Step 2: Upload Area Customization */
+.step-two-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.upload-header {
+  text-align: center;
+}
+
+.upload-header p {
+  color: var(--text-muted);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.target-name {
+  font-weight: 700;
+  color: var(--text-dark);
+  font-size: 1.2rem;
+}
+
+.dropzone {
+  border: 2px dashed var(--border-color);
+  background-color: var(--bg-subtle);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.dropzone:hover {
+  background-color: #f1f5f9;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.dropzone.file-selected {
+  border-style: solid;
+  border-color: var(--success);
+  background-color: #f0fdf4;
+}
+
+.upload-icon {
+  color: var(--primary);
+  background: rgba(99, 102, 241, 0.1);
+  padding: 15px;
+  border-radius: 50%;
+}
+
+.file-selected .upload-icon {
+  color: var(--success);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.upload-text-content .main-text {
+  font-weight: 700;
+  color: var(--text-dark); /* High contrast readability */
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.upload-text-content .sub-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+/* Button Styling */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-actions.centered {
+  justify-content: center;
+}
+
+.btn-save {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+.btn-save:hover {
+  background: var(--secondary);
+  transform: translateY(-1px);
+}
+
+.btn-cancel {
+  background: #f1f5f9;
+  color: var(--text-muted);
+  border: none;
+  padding: 14px 30px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-cancel:hover {
+  background: #e2e8f0;
+  color: var(--text-dark);
+}
+
+/* Table Card */
+.table-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  overflow: hidden;
+  border: 1px solid #f1f5f9;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.modern-table th {
+  background: var(--bg-subtle);
+  padding: 1rem;
+  text-align: left;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.modern-table td {
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.main-name {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.bold {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Status Pills */
+.status-pill {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.status-pill.approved { background: #dcfce7; color: #166534; }
+.status-pill.rejected { background: #fee2e2; color: #991b1b; }
+.status-pill.pending { background: #fef3c7; color: #92400e; }
+
+/* Actions */
+.actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.edit-delete-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.icon-btn.approve {
+  background: var(--success);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.text-btn.delete { color: var(--danger); }
+.text-btn:hover { text-decoration: underline; }

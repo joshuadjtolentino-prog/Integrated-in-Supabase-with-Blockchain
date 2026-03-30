@@ -1,0 +1,143 @@
+.summary-wrapper {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.summary-controls {
+  width: 100%;
+  max-width: 650px;
+  margin-bottom: 20px;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #7b2ff7;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.summary-card {
+  background: white;
+  width: 100%;
+  max-width: 650px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+
+.card-header {
+  background: linear-gradient(135deg, #7b2ff7, #f107a3);
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+.card-header h2 { margin: 0; font-size: 1.5rem; }
+.card-header p { margin: 5px 0 0; opacity: 0.8; font-size: 0.9rem; }
+
+.card-body {
+  padding: 40px;
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.qr-section {
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+.qr-box {
+  padding: 15px;
+  background: white;
+  border: 2px solid #f0f0f0;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.qr-hint {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.details-section {
+  flex: 1;
+}
+
+.detail-item {
+  margin-bottom: 20px;
+}
+
+.detail-item label {
+  display: block;
+  font-size: 0.75rem;
+  color: #999;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.detail-item .value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.status-pill.approved { background: #e8ffe6; color: #2e7d32; }
+.status-pill.pending { background: #fff5cc; color: #997a00; }
+
+.card-footer {
+  padding: 20px 40px 40px;
+  text-align: center;
+}
+
+.print-btn {
+  background: #7b2ff7;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.3s;
+}
+
+.print-btn:hover { background: #f107a3; }
+
+/* PRINT RULES */
+@media print {
+  .summary-controls, .print-btn { display: none !important; }
+  .summary-wrapper { padding: 0; }
+  .summary-card { box-shadow: none; border: 1px solid #000; }
+  body { background: white; }
+}
+
+@media (max-width: 600px) {
+  .card-body { flex-direction: column; align-items: center; text-align: center; }
+  .detail-grid { grid-template-columns: 1fr; }
+}
