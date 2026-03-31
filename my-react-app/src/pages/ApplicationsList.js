@@ -95,21 +95,37 @@ const ApplicationsList = () => {
         {applications.length === 0 ? (
           <p className="no-data">No applications currently in the queue.</p>
         ) : (
-          applications.map((app) => (
-            <div key={app.id} className={`app-card ${app.status}`}>
-              <div className="app-info">
-                <div className="user-avatar">
-                  <FaUserAlt />
+          applications.map((app) => {
+            const docs = app.doc_ipfs_hash ? app.doc_ipfs_hash.split(":::") : [];
+            const docHash = docs[0] || "";
+            const imgUrl = docs.length > 1 ? docs[1] : null;
+
+            return (
+              <div key={app.id} className={`app-card ${app.status}`}>
+                <div className="app-info flex items-center gap-4">
+                  {imgUrl ? (
+                    <a href={imgUrl} target="_blank" rel="noreferrer" title="View Full ID Picture">
+                      <img 
+                        src={imgUrl} 
+                        alt="Applicant ID" 
+                        className="h-14 w-14 rounded-full object-cover border-2 border-blue-100 shadow-sm hover:ring-2 hover:ring-blue-300 transition-all cursor-pointer"
+                        style={{ width: '56px', height: '56px', minWidth: '56px' }}
+                      />
+                    </a>
+                  ) : (
+                    <div className="user-avatar w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center text-gray-400">
+                      <FaUserAlt size={20} />
+                    </div>
+                  )}
+                  <div className="details m-0 p-0 flex-1">
+                    <h4 className="m-0 text-lg font-bold text-gray-800">{app.first_name} {app.last_name} {app.suffix || ""}</h4>
+                    <p className="m-0 text-gray-600 text-sm mt-1"><strong>Disability:</strong> {app.disability_type}</p>
+                    <p className="text-sm mt-1 mb-1"><strong>Age:</strong> {app.age} | <strong>Gender:</strong> {app.gender}</p>
+                    <p className="ipfs-link text-sm m-0">
+                      <FaFileMedical className="inline mr-1" /> <a href={docHash.startsWith("http") ? docHash : `https://ipfs.io/ipfs/${docHash}`} target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">View Medical Proof</a>
+                    </p>
+                  </div>
                 </div>
-                <div className="details">
-                  <h4>{app.first_name} {app.last_name} {app.suffix || ""}</h4>
-                  <p><strong>Disability:</strong> {app.disability_type}</p>
-                  <p><strong>Age:</strong> {app.age} | <strong>Gender:</strong> {app.gender}</p>
-                  <p className="ipfs-link">
-                    <FaFileMedical /> <a href={`https://ipfs.io/ipfs/${app.doc_ipfs_hash}`} target="_blank" rel="noreferrer">View Medical Proof</a>
-                  </p>
-                </div>
-              </div>
 
               <div className="app-status">
                 {/* UPDATED: Added a check for 'active' just in case old data exists */}
@@ -129,7 +145,8 @@ const ApplicationsList = () => {
                 </div>
               )}
             </div>
-          ))
+            );
+          })
         )}
       </div>
     </div>

@@ -7,6 +7,8 @@ const ApplyPWD = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
+  const [idPicture, setIdPicture] = useState(null);
+  const [idPicturePreview, setIdPicturePreview] = useState(null);
   
   // 1. Expanded State to handle new fields
   const [formData, setFormData] = useState({
@@ -26,20 +28,84 @@ const ApplyPWD = () => {
     }
   };
 
+  const handleIdPictureChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setIdPicture(selectedFile);
+      setIdPicturePreview(URL.createObjectURL(selectedFile));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const mockIpfsHash = "Qm" + Math.random().toString(36).substring(2, 15);
       const { data: { user } } = await supabase.auth.getUser();
+
+      const toBase64 = (f) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(f);
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = error => reject(error);
+      });
+
+      // Upload Medical Proof
+      let medicalProofUrl = "Qm" + Math.random().toString(36).substring(2, 15); // Fallback mock hash
+      if (file) {
+        const fileExt = file.name.split('.').pop();
+        const fileName = `med-${user?.id || 'guest'}-${Date.now()}.${fileExt}`;
+        const base64Data = await toBase64(file);
+
+        const uploadResponse = await fetch("http://localhost:8081/api/upload-id", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fileName: fileName,
+            base64Data: base64Data,
+            contentType: file.type
+          })
+        });
+
+        const uploadResult = await uploadResponse.json();
+        if (uploadResult.success) {
+          medicalProofUrl = uploadResult.publicUrl;
+        } else {
+          throw new Error("Error uploading Medical Proof: " + uploadResult.message);
+        }
+      }
+
+      // Upload ID Picture
+      let imageUrl = null;
+      if (idPicture) {
+        const fileExt = idPicture.name.split('.').pop();
+        const fileName = `id-${user?.id || 'guest'}-${Date.now()}.${fileExt}`;
+        const base64Data = await toBase64(idPicture);
+
+        const uploadResponse = await fetch("http://localhost:8081/api/upload-id", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fileName: fileName,
+            base64Data: base64Data,
+            contentType: idPicture.type
+          })
+        });
+
+        const uploadResult = await uploadResponse.json();
+        if (!uploadResult.success) {
+          throw new Error("Error uploading ID picture: " + uploadResult.message);
+        }
+          
+        imageUrl = uploadResult.publicUrl;
+      }
 
       // 2. Updated Insert Logic to include new fields
       const { error } = await supabase.from("pwd_applications").insert([
         {
           user_id: user?.id,
           status: "pending",
-          doc_ipfs_hash: mockIpfsHash,
+          doc_ipfs_hash: imageUrl ? `${medicalProofUrl}:::${imageUrl}` : medicalProofUrl,
           first_name: formData.firstName,
           last_name: formData.lastName,
           disability_type: formData.disabilityType,
@@ -136,6 +202,32 @@ const ApplyPWD = () => {
                 <option value="Intellectual">Intellectual</option>
                 <option value="Psychosocial">Psychosocial</option>
               </select>
+            </div>
+          </div>
+
+          {/* 2x2 ID Picture Upload */}
+          <div className="form-group">
+            <label>2x2 ID Picture (Selfie) *</label>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-2 mb-4 p-4 border border-dashed border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+              <div className="relative h-24 w-24 flex-shrink-0 rounded-md overflow-hidden bg-gray-200 border border-gray-300 flex items-center justify-center">
+                {idPicturePreview ? (
+                  <img src={idPicturePreview} alt="ID Preview" className="h-full w-full object-cover" />
+                ) : (
+                  <span className="text-gray-400 text-sm">No photo</span>
+                )}
+              </div>
+              <div className="flex-1 w-full text-left">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Select a clear photo showing your face
+                </label>
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  required 
+                  onChange={handleIdPictureChange} 
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
+                />
+              </div>
             </div>
           </div>
 

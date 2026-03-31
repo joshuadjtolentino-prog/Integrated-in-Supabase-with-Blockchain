@@ -5,7 +5,7 @@ const { createClient } = require("@supabase/supabase-js");
 
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '15mb' }));
 
 /* ==============================
     SUPABASE CONNECTION
@@ -113,6 +113,43 @@ app.get("/api/beneficiaries/:id", async (req, res) => {
   }
 
   res.json(data);
+});
+
+/* ==============================
+    FILE UPLOAD ROUTE
+============================== */
+app.post("/api/upload-id", async (req, res) => {
+  try {
+    const { fileName, base64Data, contentType } = req.body;
+    if (!fileName || !base64Data) {
+      return res.status(400).json({ success: false, message: "Missing file data" });
+    }
+
+    const buffer = Buffer.from(base64Data, 'base64');
+    
+    // Upload using service_role key to bypass RLS policies
+    const { data, error } = await supabase.storage
+      .from("id-pictures")
+      .upload(fileName, buffer, { 
+         contentType: contentType || 'image/jpeg',
+         upsert: true
+      });
+
+    if (error) {
+      console.error("[UPLOAD] DB Error:", error.message);
+      return res.status(500).json({ success: false, message: error.message });
+    }
+
+    // Get public URL
+    const { data: publicUrlData } = supabase.storage
+      .from("id-pictures")
+      .getPublicUrl(fileName);
+
+    res.json({ success: true, publicUrl: publicUrlData.publicUrl });
+  } catch (error) {
+    console.error("[UPLOAD] Server Error:", error);
+    res.status(500).json({ success: false, message: "Server error during upload" });
+  }
 });
 
 // Fetch all Admins
